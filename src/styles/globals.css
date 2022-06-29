@@ -53,7 +53,9 @@ a {
 .status,
 .status-value {
   font-family: "Quicksand" !important;
-  color: #fff !important;
+  color: #000 !important;
+  text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff, 1px -1px 0px #fff, -1px 1px 0px #fff;
+  font-weight: bold;
   font-size: medium;
 }
 .status {
@@ -62,14 +64,19 @@ a {
   align-items: center;
   text-align: center;
   margin: auto;
+  font-weight: 700;
   justify-content: center;
+}
+.MuiTypography-h4 {
+  font-weight: 800 !important;
+  text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff !important;
 }
 .section1-container {
   margin-top: 60px;
   padding: 20px;
   z-index: 1;
   position: relative;
-  background: #394529;
+  background: #39452957;
   border-radius: 12px;
 }
 .section2 {
@@ -238,10 +245,12 @@ button {
 }
 .tab-btn:last-child {
   margin-right: 0;
+  text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff !important;
 }
 .tab-btn.active {
   font-weight: 700;
   color: #394529;
+  text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff !important;
 }
 @media (max-width: 992px) {
   .nft-card {
