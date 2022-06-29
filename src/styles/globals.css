@@ -1,0 +1,271 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Quicksand";
+  background-color: #ededeb;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.appbar-color {
+  background-color: #87cdf1 !important;
+}
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+}
+.logo {
+  width: 80px;
+}
+.MuiToolbar-root {
+  align-items: flex-start !important;
+  margin-top: 30px !important;
+}
+.wallet-button {
+  background-color: #394529 !important;
+  font-family: "Quicksand" !important;
+  padding: 5px 30px !important;
+  font-size: 20px !important;
+  border-radius: 30px !important;
+}
+.title {
+  font-size: 56px !important;
+  color: #394529;
+}
+
+.subtitle {
+  color: #394529;
+}
+.section1 {
+  overflow: hidden;
+  position: relative;
+}
+.status,
+.status-value {
+  font-family: "Quicksand" !important;
+  color: #fff !important;
+  font-size: medium;
+}
+.status {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  justify-content: center;
+}
+.section1-container {
+  margin-top: 60px;
+  padding: 20px;
+  z-index: 1;
+  position: relative;
+  background: #394529;
+  border-radius: 12px;
+}
+.section2 {
+  /* height: 40vh; */
+  background-color: #394529;
+}
+.section2-claim {
+  padding: 40px;
+  margin: 50px 0;
+}
+.claim {
+  width: 100%;
+  padding: 20px !important;
+  font-family: "Quicksand" !important;
+  color: #394529 !important;
+  background-color: #87cdf1 !important;
+  font-size: 24px !important;
+}
+.btn-stake {
+  font-family: "Quicksand" !important;
+  background-color: #394529 !important;
+  color: #fff !important;
+  font-size: 20px !important;
+  padding: 4px 36px !important;
+  transition: transform 0.3s !important;
+}
+.card-content-action button:first-child {
+  margin-right: 10px;
+}
+.card-content-action button:last-child {
+  margin-left: 10px;
+}
+@media (max-width: 992px) and (min-width: 762px) {
+  .card-content-action button:first-child {
+    margin-right: 0 !important;
+    margin-bottom: 10px !important;
+  }
+  .card-content-action button:last-child {
+    margin-left: 0 !important;
+  }
+}
+.btn-unstake {
+  font-family: "Quicksand" !important;
+  background-color: #9e0909 !important;
+  color: #fff !important;
+  font-size: 20px !important;
+  padding: 4px 18px !important;
+  transition: transform 0.3s !important;
+}
+.btn-claim {
+  font-family: "Quicksand" !important;
+  background-color: #3498db !important;
+  color: #fff !important;
+  font-size: 20px !important;
+  padding: 4px 18px !important;
+  transition: transform 0.3s !important;
+}
+.btn-stake:hover {
+  transform: translateY(-3px);
+}
+.footer {
+  background-color: #394529;
+  padding: 30px 0;
+}
+.social-links {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+.footer svg {
+  width: 50px;
+  height: 50px;
+  margin: 0 15px;
+}
+.wallet-address {
+  text-transform: none;
+}
+.nfts-list {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding-bottom: 160px;
+}
+.nft-card {
+  width: calc(33.33% - 30px);
+  margin-right: 15px;
+  margin-left: 15px;
+  background-color: #87cdf1;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  padding: 24px;
+  position: relative;
+}
+.card-loading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #87cdf1b8;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+.card-loading .card-loading-box {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nft-card .media {
+}
+.nft-card .media img {
+  width: 100%;
+  border-radius: 8px 8px 8px 8px;
+}
+.nft-card .card-content p {
+  font-size: 20px;
+}
+.page-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 360px;
+  z-index: 999;
+  background-color: #394529;
+}
+.page-loading .loading-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  box-shadow: 2px 4px 8px #0005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #87cdf1;
+}
+.page-tabs {
+  margin: 70px 0 40px;
+  padding: 30px 0;
+}
+button {
+  cursor: pointer;
+}
+.tab-btn {
+  font-family: "Quicksand" !important;
+  font-size: 32px;
+  color: #3945298a;
+  border: none;
+  font-weight: 700;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: transparent;
+  text-transform: uppercase;
+}
+.tab-btn:first-child {
+  margin-left: 0;
+}
+.tab-btn:last-child {
+  margin-right: 0;
+}
+.tab-btn.active {
+  font-weight: 700;
+  color: #394529;
+}
+@media (max-width: 992px) {
+  .nft-card {
+    padding: 12px;
+  }
+}
+@media (max-width: 762px) {
+  .nft-card {
+    width: calc(50% - 30px);
+    padding: 12px;
+  }
+  .btn-stake {
+    font-size: 16px !important;
+    padding: 4px 26px !important;
+  }
+  .nft-card .card-content p {
+    font-size: 12px;
+  }
+  .tab-btn {
+    font-size: 24px;
+  }
+}
+@media (max-width: 576px) {
+  .status {
+    height: 200px;
+  }
+}
