@@ -219,7 +219,8 @@ export default function Home() {
                     {connected ?
                       <Typography variant="h4" component="h2" gutterBottom className="status-value">
                         {!loading ?
-                          <>{stakedNFTs && stakedNFTs.length}</>
+                          // <>{stakedNFTs && stakedNFTs.length}</>
+                          <>{0}</>
                           :
                           <>--</>
                         }

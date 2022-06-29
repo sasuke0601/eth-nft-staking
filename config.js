@@ -5,7 +5,7 @@ export const SMARTCONTRACT_ADDRESS_ERC20 = '0xc2ac78FFdDf39e5cD6D83bbD70c1D67517
 export const NETWORK = "Mainnet";
 
 export const SITE_ERROR = [
-	"The wrong network, please switch to the Aurora network.",
+	"The wrong network, please switch to the Ethereum Rinkeby network.",
 	"You need MetaMask to interact with this site!"
 ]
 
