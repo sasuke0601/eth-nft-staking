@@ -1,8 +1,8 @@
-import { Button } from "@material-ui/core"
-import { useState } from "react"
-import { StakingContract_Address, StakingContract_Address_NFT } from "../../config"
-import { ScaleLoader } from "react-spinners"
-import { successAlert } from "./toastGroup"
+import { useState } from "react";
+import { StakingContract_Address, StakingContract_Address_NFT } from "../../config";
+import { ScaleLoader } from "react-spinners";
+import { successAlert } from "./toastGroup";
+import { Button, Grid } from "@mui/material";
 
 export default function NFTCard({
     id,
@@ -33,17 +33,17 @@ export default function NFTCard({
 
     return (
         <div className="nft-card">
-            <div className="card-content">
-                <p>{`${nftName} #${tokenId}`}</p>
-                <Button className="btn-stake" onClick={() => onStake()}>
-                    Stake
-                </Button>
+            <div className="media">
+                {/* eslint-disable-next-line */}
+                <img
+                    src="https://lh3.googleusercontent.com/CUw9Pm2OdYAAUJuqIyKwOEOJKZL11Ui8jC2oqYFEBIj6OhJwi3ayI0kzKA4tZ6mhUQvAkFyov1xxG-ju0PnRNQQVG_eYG3Y8tn-mmlQ=w600"
+                    alt=""
+                />
             </div>
-            {loading &&
-                <div className="card-loading">
-                    <ScaleLoader size={40} color="#394529" />
-                </div>
-            }
+            <div className="card-action">
+                <button className="btn-primary">STAKE</button>
+                <button className="btn-primary">CLAIM</button>
+            </div>
         </div>
     )
 }

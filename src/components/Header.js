@@ -1,8 +1,5 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
-import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
-
+import { Container, Button } from "@mui/material";
 export default function Header({
   connected,
   signerAddress,
@@ -12,7 +9,7 @@ export default function Header({
   return (
     <header>
       <Container maxWidth="lg">
-        <Toolbar className="nav-header">
+        <div className="header-content">
           <a href="#">
             {/* eslint-disable-next-line */}
             <img src="./logo.png" alt="logo" className="logo" />
@@ -28,7 +25,7 @@ export default function Header({
               </span>
             }
           </Button>
-        </Toolbar>
+        </div>
       </Container>
     </header>
   )

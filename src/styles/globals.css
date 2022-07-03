@@ -1,10 +1,44 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../assets/fonts/Montserrat-Regualr.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Minercraftory";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../assets/fonts/Minercraftory.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../assets/fonts/Montserrat-Medium.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../assets/fonts/Montserrat-SemiBold.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Quicksand";
+  font-family: "Minercraftory";
   background-color: #ededeb;
 }
 
@@ -14,6 +48,7 @@ a {
 }
 
 * {
+  font-family: "Minercraftory";
   box-sizing: border-box;
 }
 
@@ -33,26 +68,15 @@ a {
 }
 .wallet-button {
   background-color: #394529 !important;
-  font-family: "Quicksand" !important;
+  font-family: "Minercraftory" !important;
   padding: 5px 30px !important;
   font-size: 20px !important;
   border-radius: 30px !important;
 }
-.title {
-  font-size: 56px !important;
-  color: #394529;
-}
 
-.subtitle {
-  color: #394529;
-}
-.section1 {
-  overflow: hidden;
-  position: relative;
-}
 .status,
 .status-value {
-  font-family: "Quicksand" !important;
+  font-family: "Minercraftory" !important;
   color: #000 !important;
   text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff, 1px -1px 0px #fff, -1px 1px 0px #fff;
   font-weight: bold;
@@ -90,36 +114,21 @@ a {
 .claim {
   width: 100%;
   padding: 20px !important;
-  font-family: "Quicksand" !important;
+  font-family: "Minercraftory" !important;
   color: #394529 !important;
   background-color: #87cdf1 !important;
   font-size: 24px !important;
 }
 .btn-stake {
-  font-family: "Quicksand" !important;
+  font-family: "Minercraftory" !important;
   background-color: #394529 !important;
   color: #fff !important;
   font-size: 20px !important;
   padding: 4px 36px !important;
   transition: transform 0.3s !important;
 }
-.card-content-action button:first-child {
-  margin-right: 10px;
-}
-.card-content-action button:last-child {
-  margin-left: 10px;
-}
-@media (max-width: 992px) and (min-width: 762px) {
-  .card-content-action button:first-child {
-    margin-right: 0 !important;
-    margin-bottom: 10px !important;
-  }
-  .card-content-action button:last-child {
-    margin-left: 0 !important;
-  }
-}
 .btn-unstake {
-  font-family: "Quicksand" !important;
+  font-family: "Minercraftory" !important;
   background-color: #9e0909 !important;
   color: #fff !important;
   font-size: 20px !important;
@@ -127,7 +136,7 @@ a {
   transition: transform 0.3s !important;
 }
 .btn-claim {
-  font-family: "Quicksand" !important;
+  font-family: "Minercraftory" !important;
   background-color: #3498db !important;
   color: #fff !important;
   font-size: 20px !important;
@@ -161,45 +170,6 @@ a {
   position: relative;
   padding-bottom: 160px;
 }
-.nft-card {
-  width: calc(33.33% - 30px);
-  margin-right: 15px;
-  margin-left: 15px;
-  background-color: #87cdf1;
-  border-radius: 8px;
-  margin-bottom: 30px;
-  padding: 24px;
-  position: relative;
-}
-.card-loading {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background-color: #87cdf1b8;
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(8px);
-}
-.card-loading .card-loading-box {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.nft-card .media {
-}
-.nft-card .media img {
-  width: 100%;
-  border-radius: 8px 8px 8px 8px;
-}
-.nft-card .card-content p {
-  font-size: 20px;
-}
 .page-loading {
   display: flex;
   align-items: center;
@@ -230,7 +200,7 @@ button {
   cursor: pointer;
 }
 .tab-btn {
-  font-family: "Quicksand" !important;
+  font-family: "Minercraftory" !important;
   font-size: 32px;
   color: #3945298a;
   border: none;
@@ -252,22 +222,10 @@ button {
   color: #394529;
   text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff !important;
 }
-@media (max-width: 992px) {
-  .nft-card {
-    padding: 12px;
-  }
-}
 @media (max-width: 762px) {
-  .nft-card {
-    width: calc(50% - 30px);
-    padding: 12px;
-  }
   .btn-stake {
     font-size: 16px !important;
     padding: 4px 26px !important;
-  }
-  .nft-card .card-content p {
-    font-size: 12px;
   }
   .tab-btn {
     font-size: 24px;

@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core"
+import { Button } from "@mui/material"
 import { useState } from "react"
 import { ScaleLoader } from "react-spinners"
 import { successAlert } from "./toastGroup"
