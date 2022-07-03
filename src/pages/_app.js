@@ -1,5 +1,7 @@
 import { ToastContainer } from 'react-toastify'
 import '../styles/globals.css'
+import "../styles/style.scss";
+
 
 function MyApp({ Component, pageProps }) {
   return (
