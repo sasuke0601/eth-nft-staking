@@ -10,6 +10,7 @@ import { CHAIN_ID, NETWORK, SITE_ERROR, SMARCONTRACT_INI_ABI, SMARTCONTRACT_ABI_
 import NFTCard from "../components/NFTCard";
 import { errorAlertCenter } from "../components/toastGroup";
 import { Container, Grid } from "@mui/material";
+import UnNFTCard from "../components/UnNFTCard";
 
 let web3Modal = undefined
 let contract = undefined
@@ -208,8 +209,6 @@ export default function Home() {
                                             <NFTCard />
                                             <NFTCard />
                                             <NFTCard />
-                                            <NFTCard />
-                                            <NFTCard />
                                         </div>
                                     </div>
                                 </div>
@@ -229,9 +228,17 @@ export default function Home() {
                                     </div>
                                     <div className="box">
                                         <div className="box-content">
-                                            <NFTCard />
-                                            <NFTCard />
-                                            <NFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
+                                            <UnNFTCard />
                                         </div>
                                     </div>
                                 </div>
