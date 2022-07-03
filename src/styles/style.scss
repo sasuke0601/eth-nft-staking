@@ -25,33 +25,51 @@ header {
 }
 .title-bar {
     text-align: center;
+    h2 {
+        color: #394529;
+        text-shadow: 2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff;
+    }
 }
 .nft-box {
+    margin-bottom: 40px;
     .box {
         padding: 16px;
         border-radius: 16px;
+        min-height: 500px;
         background: #19210ed9;
     }
     .box-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        h3 {
+            color: #394529;
+            text-shadow: 2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff;
+        }
+        @media (max-width: 762px) {
+            flex-direction: column;
+            .box-control {
+                margin-bottom: 20px;
+            }
+        }
     }
 }
 .box-content {
     display: flex;
     flex-wrap: wrap;
-
     gap: 12px;
     .nft-card {
         width: calc(33.33% - 8px);
         position: relative;
+        height: 180px;
         .media {
             position: relative;
+            height: 100%;
             img {
                 width: 100%;
                 height: 100%;
                 border-radius: 12px;
+                object-fit: cover;
             }
         }
         .card-action {
@@ -67,13 +85,21 @@ header {
             border-radius: 12px;
             opacity: 0;
             pointer-events: none;
+            transition: all 0.2s;
             border: 2px solid #e0e0dc;
         }
         &:hover {
             .card-action {
                 opacity: 1;
                 pointer-events: all;
+                transition: all 0.2s;
             }
+        }
+        @media (max-width: 762px) {
+            width: calc(50% - 8px);
+        }
+        @media (max-width: 350px) {
+            width: calc(100%);
         }
     }
 }
@@ -81,15 +107,17 @@ header {
     background: #e0e0dc;
     border: none;
     font-size: 12px;
-    margin-right: 10px;
+    margin-right: 5px;
     padding: 8px 10px;
     border-radius: 8px;
     color: #19210e;
+    transition: all 0.3s;
     &:last-child {
         margin-right: 0;
     }
     &:hover {
         background-color: #cecebc;
+        transition: all 0.3s;
     }
 }
 
@@ -97,14 +125,17 @@ header {
     background: #394529;
     border: none;
     font-size: 16px;
-    margin-right: 10px;
+    margin-right: 5px;
     padding: 8px 10px;
     border-radius: 8px;
     color: #ffffff;
+    border: 2px solid;
+    transition: all 0.3s;
     &:last-child {
         margin-right: 0;
     }
     &:hover {
+        transition: all 0.3s;
         background-color: #4c5a3a;
     }
 }

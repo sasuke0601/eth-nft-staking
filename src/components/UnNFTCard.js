@@ -4,7 +4,7 @@ import { ScaleLoader } from "react-spinners";
 import { successAlert } from "./toastGroup";
 import { Button, Grid } from "@mui/material";
 
-export default function NFTCard({
+export default function UnNFTCard({
     id,
     nftName,
     tokenId,
@@ -41,7 +41,8 @@ export default function NFTCard({
                 />
             </div>
             <div className="card-action">
-                <button className="btn-primary">STAKE</button>
+                <button className="btn-primary">UNSTAKE</button>
+                <button className="btn-primary">CLAIM</button>
             </div>
         </div>
     )
