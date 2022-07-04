@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StakingContract_Address, StakingContract_Address_NFT } from "../../config";
 import { ScaleLoader } from "react-spinners";
 import { successAlert } from "./toastGroup";
 import { Button, Grid } from "@mui/material";
+import { PageLoading } from "./Loading";
 
 export default function NFTCard({
     id,
@@ -13,14 +14,30 @@ export default function NFTCard({
     contract,
     contract_nft
 }) {
-    const [loading, setLoading] = useState(false)
-
+    const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState("");
+    const getNftDetail = async () => {
+        const uri = await contract_nft?.tokenURI(tokenId);
+        console.log(uri);
+        await fetch(uri)
+            .then(resp =>
+                resp.json()
+            ).catch((e) => {
+                console.log(e);
+            }).then((json) => {
+                setImage(json?.image)
+            })
+    }
     const onStake = async () => {
-        setLoading(false)
+        setLoading(true);
         try {
-            const approve = await contract_nft.approve(StakingContract_Address, id)
-            await approve.wait();
-            const stake = await contract.callStakeToken(StakingContract_Address_NFT, id)
+            const approved = await contract_nft.isApprovedForAll(signerAddress, StakingContract_Address);
+            console.log(approved, "approved")
+            if (!approved) {
+                const approve = await contract_nft.setApprovalForAll(StakingContract_Address, true)
+                await approve.wait();
+            }
+            const stake = await contract.callStakeToken(StakingContract_Address_NFT, [id])
             await stake.wait();
             successAlert("Staking is successful.")
             updatePage(signerAddress)
@@ -30,19 +47,34 @@ export default function NFTCard({
         }
         setLoading(false)
     }
-
+    useEffect(() => {
+        getNftDetail()
+        // eslint-disable-next-line
+    }, [])
     return (
         <div className="nft-card">
-            <div className="media">
-                {/* eslint-disable-next-line */}
-                <img
-                    src="https://lh3.googleusercontent.com/CUw9Pm2OdYAAUJuqIyKwOEOJKZL11Ui8jC2oqYFEBIj6OhJwi3ayI0kzKA4tZ6mhUQvAkFyov1xxG-ju0PnRNQQVG_eYG3Y8tn-mmlQ=w600"
-                    alt=""
-                />
-            </div>
-            <div className="card-action">
-                <button className="btn-primary">STAKE</button>
-            </div>
+            {loading ?
+                <div className="card-loading">
+                    <PageLoading />
+                </div>
+                :
+                <>
+                    <div className="media">
+                        {image === "" ?
+                            <span className="empty-image empty-image-skeleton"></span>
+                            :
+                            // eslint-disable-next-line
+                            <img
+                                src={image}
+                                alt=""
+                            />
+                        }
+                    </div>
+                    <div className="card-action">
+                        <button className="btn-primary" onClick={onStake}>STAKE</button>
+                    </div>
+                </>
+            }
         </div>
     )
 }

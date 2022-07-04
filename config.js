@@ -1,8 +1,8 @@
-export const CHAIN_ID = 4
-export const StakingContract_Address = '0xf453336aB430C7D8C818ec89e220E744C66054ea'
-export const StakingContract_Address_NFT = '0xea5cC56B180D1A845bD86cBA6711868a9763f461'
-export const SMARTCONTRACT_ADDRESS_ERC20 = '0xc2ac78FFdDf39e5cD6D83bbD70c1D67517C467eF'
-export const NETWORK = "Mainnet";
+export const CHAIN_ID = 4;
+export const StakingContract_Address = '0x1eB6A807CD9522F1D72A31D9A2ee29Ca7C71BD63';
+export const StakingContract_Address_NFT = '0xC15f3087363a772C329859E38023910Db75F8557';
+export const SMARTCONTRACT_ADDRESS_ERC20 = '0xd663F161E536D636E895FAAcfBf4A1Cba27457F0';
+export const NETWORK = "Testnet";
 
 export const SITE_ERROR = [
 	"The wrong network, please switch to the Ethereum Rinkeby network.",
@@ -10,6 +10,119 @@ export const SITE_ERROR = [
 ]
 
 export const StakingContract_ABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "token",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_tokenID",
+				"type": "uint256[]"
+			}
+		],
+		"name": "callStakeToken",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "stakingId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "staker",
+				"type": "address"
+			}
+		],
+		"name": "checkStake",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "staker",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "releaseTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum StakeNFT.StakingStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "StakingId",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct StakeNFT.Staking",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "stakingId",
+				"type": "uint256[]"
+			}
+		],
+		"name": "claimReward",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newAdd",
+				"type": "address"
+			}
+		],
+		"name": "setNewAdmin",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newRate",
+				"type": "uint256"
+			}
+		],
+		"name": "setRewardRate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -148,17 +261,12 @@ export const StakingContract_ABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_tokenID",
-				"type": "uint256"
+				"internalType": "uint256[]",
+				"name": "stakingId",
+				"type": "uint256[]"
 			}
 		],
-		"name": "callStakeToken",
+		"name": "unStake",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -167,157 +275,12 @@ export const StakingContract_ABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "stakingId",
+				"name": "amount",
 				"type": "uint256"
 			}
 		],
-		"name": "cancelStake",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "staker",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "releaseTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum StakeNFT.StakingStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint256",
-						"name": "StakingId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct StakeNFT.Staking",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "stakingId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "staker",
-				"type": "address"
-			}
-		],
-		"name": "checkStake",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "staker",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "releaseTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum StakeNFT.StakingStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint256",
-						"name": "StakingId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct StakeNFT.Staking",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "stakingId",
-				"type": "uint256"
-			}
-		],
-		"name": "claimStake",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "staker",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "releaseTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum StakeNFT.StakingStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint256",
-						"name": "StakingId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct StakeNFT.Staking",
-				"name": "",
-				"type": "tuple"
-			}
-		],
+		"name": "withdraw",
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -345,32 +308,6 @@ export const StakingContract_ABI = [
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newAdd",
-				"type": "address"
-			}
-		],
-		"name": "setNewAdmin",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "newRate",
-				"type": "uint256"
-			}
-		],
-		"name": "setRewardRate",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
