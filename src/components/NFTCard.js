@@ -27,6 +27,7 @@ export default function NFTCard({
                 setImage(json?.image)
             })
     }
+
     const onStake = async () => {
         setLoading(true);
         try {
@@ -76,4 +77,4 @@ export default function NFTCard({
         </div>
     )
 }
-//after 
+//after
