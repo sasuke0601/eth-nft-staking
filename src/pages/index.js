@@ -262,7 +262,7 @@ export default function Home() {
                                         <div className="box-header">
                                             <h3>Your NFT {unstakedNFTs?.length && `(${unstakedNFTs?.length})`}</h3>
                                             <div className="box-control">
-                                                <button className="btn-second" onClick={onStakeAll}>
+                                                <button className="btn-second" onClick={onStakeAll} disabled={stakeAllLoading}>
                                                     {stakeAllLoading ?
                                                         <div className="btn-loading">
                                                             <PageLoading />
@@ -300,7 +300,7 @@ export default function Home() {
                                         <div className="box-header">
                                             <h3>Staked NFT {stakedNFTs?.length && `(${stakedNFTs?.length})`}</h3>
                                             <div className="box-control">
-                                                <button className="btn-second" onClick={onUnstakeAll}>
+                                                <button className="btn-second" onClick={onUnstakeAll} disabled={unstakeAllLoading}>
                                                     {unstakeAllLoading ?
                                                         <div className="btn-loading">
                                                             <PageLoading />
@@ -309,7 +309,7 @@ export default function Home() {
                                                         <>UNSTAKE ALL</>
                                                     }
                                                 </button>
-                                                <button className="btn-second" onClick={onClaimAll}>
+                                                <button className="btn-second" onClick={onClaimAll} disabled={claimAllLoading}>
                                                     {claimAllLoading ?
                                                         <div className="btn-loading">
                                                             <PageLoading />

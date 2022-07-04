@@ -161,6 +161,9 @@ header {
         transition: all 0.3s;
         background-color: #4c5a3a;
     }
+    &:disabled {
+        pointer-events: none;
+    }
 }
 .box-control {
     display: flex;
