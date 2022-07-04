@@ -8,73 +8,78 @@ import { ethers, providers } from "ethers"
 import { providerOptions } from "../contracts/utils"
 import { CHAIN_ID, NETWORK, SITE_ERROR, SMARCONTRACT_INI_ABI, SMARTCONTRACT_ABI_ERC20, SMARTCONTRACT_ADDRESS_ERC20, StakingContract_ABI, StakingContract_Address, StakingContract_Address_NFT } from "../../config"
 import NFTCard from "../components/NFTCard";
-import { errorAlertCenter } from "../components/toastGroup";
-import { Container, Grid } from "@mui/material";
+import { errorAlertCenter, successAlert } from "../components/toastGroup";
+import { Container, Grid, Button } from "@mui/material";
 import UnNFTCard from "../components/UnNFTCard";
+import { PageLoading } from "../components/Loading";
 
-let web3Modal = undefined
-let contract = undefined
-let contract_20 = undefined
-let contract_nft = undefined
+let web3Modal = undefined;
+let contract = undefined;
+let contract_20 = undefined;
+let contract_nft = undefined;
 
 export default function Home() {
+    const [connected, setConnected] = useState(false);
+    const [signerAddress, setSignerAddress] = useState("");
+    const [unstakedNFTs, setUnstakedNFTs] = useState();
+    const [stakedNFTs, setStakedNFTs] = useState();
+    const [loading, setLoading] = useState(false);
+    const [totalStaked, setTotalStaked] = useState(0);
 
-    const [connected, setConnected] = useState(false)
-    const [signerAddress, setSignerAddress] = useState("")
-    const [unstakedNFTs, setUnstakedNFTs] = useState()
-    const [stakedNFTs, setStakedNFTs] = useState()
-    const [loading, setLoading] = useState(false)
-    const [tab, setTab] = useState("unstaked")
-    const [totalStaked, setTotalStaked] = useState(0)
-    const [totalValueLocked, setTotalValueLocked] = useState(0)
-    const [nftName, setNftName] = useState("")
+    const [stakeAllLoading, setStakeAllLoading] = useState(false);
+    const [unstakeAllLoading, setUnstakeAllLoading] = useState(false);
+    const [claimAllLoading, setClaimAllLoading] = useState(false);
 
     const connectWallet = async () => {
         if (await checkNetwork()) {
-            // setLoading(true)
+            setLoading(true)
             web3Modal = new Web3Modal({
                 network: NETWORK, // optional
                 cacheProvider: true,
                 providerOptions, // required
             })
-            const provider = await web3Modal.connect()
-            const web3Provider = new providers.Web3Provider(provider)
+            try {
+                const provider = await web3Modal.connect();
+                const web3Provider = new providers.Web3Provider(provider);
+                const signer = web3Provider.getSigner();
+                const address = await signer.getAddress();
 
-            // const signer = web3Provider.getSigner()
-            // const address = await signer.getAddress()
+                setConnected(true);
+                setSignerAddress(address);
 
-            // setConnected(true)
-            // setSignerAddress(address)
+                contract = new ethers.Contract(
+                    StakingContract_Address,
+                    StakingContract_ABI,
+                    signer
+                );
 
-            // contract = new ethers.Contract(
-            //   StakingContract_Address,
-            //   StakingContract_ABI,
-            //   signer
-            // )
+                contract_nft = new ethers.Contract(
+                    StakingContract_Address_NFT,
+                    SMARCONTRACT_INI_ABI,
+                    signer
+                );
 
-            // contract_nft = new ethers.Contract(
-            //   StakingContract_Address_NFT,
-            //   SMARCONTRACT_INI_ABI,
-            //   signer
-            // )
+                console.log(contract)
 
-            // const name = await contract_nft.name()
-            // setNftName(name)
+                console.log(parseFloat(await contract.getRewardRate()) / Math.pow(10, 18))
+                console.log(await contract.viewStake(3))
+                contract_20 = new ethers.Contract(
+                    SMARTCONTRACT_ADDRESS_ERC20,
+                    SMARTCONTRACT_ABI_ERC20,
+                    signer
+                );
 
-            // contract_20 = new ethers.Contract(
-            //   SMARTCONTRACT_ADDRESS_ERC20,
-            //   SMARTCONTRACT_ABI_ERC20,
-            //   signer
-            // )
+                /////////////////
+                updatePage(address);
+                /////////////////
 
-            /////////////////
-            // updatePage(address)
-            /////////////////
-
-            // Subscribe to accounts change
-            provider.on("accountsChanged", (accounts) => {
-                console.log(accounts[0], '--------------')
-            })
+                // Subscribe to accounts change
+                provider.on("accountsChanged", (accounts) => {
+                    console.log(accounts[0], '--------------');
+                });
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
@@ -85,8 +90,6 @@ export default function Home() {
         const balance = await contract_nft.balanceOf(address)
         const totalSupply = await contract.getTotalStaked()
         let total = 0
-        const valueLocked = await contract_20.balanceOf(StakingContract_Address)
-        setTotalValueLocked(valueLocked / Math.pow(10, 18))
         try {
             let promise_index = [];
             for (let i = 0; i < parseInt(balance); i++) {
@@ -109,7 +112,7 @@ export default function Home() {
             const data = await Promise.all(promise)
             for (let i = 0; i < data.length; i++) {
                 if (data[i].status === 1) {
-                    console.log(i, "pool ID--------------------------");
+                    // console.log(i, "pool ID--------------------------");
                 }
                 if (data[i].status === 0) {
                     total++
@@ -118,7 +121,8 @@ export default function Home() {
                             {
                                 id: i,
                                 tokenId: data[i].tokenId.toNumber(),
-                                status: data[i].status
+                                status: data[i].status,
+                                releaseTime: parseFloat(data[i].releaseTime) * 1000
                             }
                         )
                     }
@@ -127,6 +131,8 @@ export default function Home() {
         } catch (error) {
             console.log(error)
         }
+        console.log(unstaked)
+        console.log(staked)
         setUnstakedNFTs(unstaked)
         setStakedNFTs(staked)
         setTotalStaked(total)
@@ -144,20 +150,80 @@ export default function Home() {
         }
     }
 
+    const onStakeAll = async () => {
+        setStakeAllLoading(true);
+        let unstaked = [];
+        for (let item of unstakedNFTs) {
+            unstaked.push(item.id);
+        }
+        try {
+            const approved = await contract_nft.isApprovedForAll(signerAddress, StakingContract_Address);
+            console.log(approved, "approved")
+            if (!approved) {
+                const approve = await contract_nft.setApprovalForAll(StakingContract_Address, true)
+                await approve.wait();
+            }
+            const stake = await contract.callStakeToken(StakingContract_Address_NFT, unstaked)
+            await stake.wait();
+            successAlert("Staking is successful.")
+            updatePage(signerAddress)
+        } catch (error) {
+            setStakeAllLoading(false)
+            console.log(error)
+        }
+        setStakeAllLoading(false);
+    }
+
+    const onUnstakeAll = async () => {
+        setUnstakeAllLoading(true);
+        let staked = [];
+        for (let item of stakedNFTs) {
+            staked.push(item.id);
+        }
+        try {
+            const unstake = await contract.unStake(staked);
+            await unstake.wait();
+            successAlert("Unstaking is successful.");
+            updatePage(signerAddress);
+        } catch (error) {
+            setUnstakeAllLoading(false);
+            console.log(error);
+        }
+        setUnstakeAllLoading(false)
+    }
+
+    const onClaimAll = async () => {
+        setClaimAllLoading(true);
+        let staked = [];
+        for (let item of stakedNFTs) {
+            staked.push(item.id);
+        }
+        try {
+            const unstake = await contract.claimReward(staked)
+            await unstake.wait();
+            successAlert("Claiming is successful.")
+            updatePage(signerAddress)
+        } catch (error) {
+            setClaimAllLoading(false)
+            console.log(error)
+        }
+        setClaimAllLoading(false)
+    }
+
     useEffect(() => {
         async function fetchData() {
             if (typeof window.ethereum !== 'undefined') {
                 if (await checkNetwork()) {
-                    await connectWallet()
+                    await connectWallet();
                     ethereum.on('accountsChanged', function (accounts) {
-                        window.location.reload()
-                    })
+                        window.location.reload();
+                    });
                     if (ethereum.selectedAddress !== null) {
-                        setSignerAddress(ethereum.selectedAddress)
-                        setConnected(true)
+                        setSignerAddress(ethereum.selectedAddress);
+                        setConnected(true);
                     }
                     ethereum.on('chainChanged', (chainId) => {
-                        checkNetwork()
+                        checkNetwork();
                     })
                 }
             } else {
@@ -188,64 +254,107 @@ export default function Home() {
                         </h1>
                     </Container>
                 </div>
-                <Container>
-                    <div className="main-page">
-                        <div className="title-bar">
-                            <h2>Total staked NFT: {totalStaked}</h2>
+                {connected ?
+                    <Container>
+                        <div className="main-page">
+                            <div className="title-bar">
+                                <h2>Total staked NFT: {totalStaked}</h2>
+                            </div>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} md={6}>
+                                    <div className="nft-box">
+                                        <div className="box-header">
+                                            <h3>Your NFT {unstakedNFTs?.length && `(${unstakedNFTs?.length})`}</h3>
+                                            <div className="box-control">
+                                                <button className="btn-second" onClick={onStakeAll}>
+                                                    {stakeAllLoading ?
+                                                        <div className="btn-loading">
+                                                            <PageLoading />
+                                                        </div>
+                                                        :
+                                                        <>STAKE ALL</>
+                                                    }
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div className="box">
+                                            {loading ?
+                                                <PageLoading />
+                                                :
+                                                <div className="box-content">
+                                                    {unstakedNFTs && unstakedNFTs.length !== 0 && unstakedNFTs.map((item, key) => (
+                                                        <NFTCard
+                                                            id={item.id}
+                                                            key={key}
+                                                            tokenId={item.tokenId}
+                                                            signerAddress={signerAddress}
+                                                            updatePage={() => updatePage(signerAddress)}
+                                                            contract={contract}
+                                                            contract_nft={contract_nft}
+                                                        />
+                                                    ))}
+                                                </div>
+
+                                            }
+                                        </div>
+                                    </div>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <div className="nft-box">
+                                        <div className="box-header">
+                                            <h3>Staked NFT {stakedNFTs?.length && `(${stakedNFTs?.length})`}</h3>
+                                            <div className="box-control">
+                                                <button className="btn-second" onClick={onUnstakeAll}>
+                                                    {unstakeAllLoading ?
+                                                        <div className="btn-loading">
+                                                            <PageLoading />
+                                                        </div>
+                                                        :
+                                                        <>UNSTAKE ALL</>
+                                                    }
+                                                </button>
+                                                <button className="btn-second" onClick={onClaimAll}>
+                                                    {claimAllLoading ?
+                                                        <div className="btn-loading">
+                                                            <PageLoading />
+                                                        </div>
+                                                        :
+                                                        <>CLAIM ALL</>
+                                                    }
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div className="box">
+                                            {loading ?
+                                                <PageLoading />
+                                                :
+                                                <div className="box-content">
+                                                    {stakedNFTs && stakedNFTs.length !== 0 && stakedNFTs.map((item, key) => (
+                                                        <UnNFTCard
+                                                            key={key}
+                                                            id={item.id}
+                                                            tokenId={item.tokenId}
+                                                            signerAddress={signerAddress}
+                                                            updatePage={() => updatePage(signerAddress)}
+                                                            contract={contract}
+                                                            contract_nft={contract_nft}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </Grid>
+                            </Grid>
                         </div>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={6}>
-                                <div className="nft-box">
-                                    <div className="box-header">
-                                        <h3>Your NFT (3)</h3>
-                                        <div className="box-control">
-                                            <button className="btn-second">
-                                                STAKE ALL
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="box">
-                                        <div className="box-content">
-                                            <NFTCard />
-                                            <NFTCard />
-                                            <NFTCard />
-                                        </div>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <div className="nft-box">
-                                    <div className="box-header">
-                                        <h3>Staked NFT (3)</h3>
-                                        <div className="box-control">
-                                            <button className="btn-second">
-                                                UNSTAKE ALL
-                                            </button>
-                                            <button className="btn-second">
-                                                CLAIM ALL
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="box">
-                                        <div className="box-content">
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                            <UnNFTCard />
-                                        </div>
-                                    </div>
-                                </div>
-                            </Grid>
-                        </Grid>
+                    </Container>
+                    :
+                    <div className="center">
+                        <Button variant="contained" color="secondary" className="wallet-button" onClick={() => connectWallet()}>
+                            Wallet connect
+                        </Button>
                     </div>
-                </Container>
+                }
             </main>
             {/* eslint-disable-next-line */}
             <img

@@ -30,6 +30,16 @@ header {
         text-shadow: 2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff;
     }
 }
+.box-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
 .nft-box {
     margin-bottom: 40px;
     .box {
@@ -37,6 +47,7 @@ header {
         border-radius: 16px;
         min-height: 500px;
         background: #19210ed9;
+        position: relative;
     }
     .box-header {
         display: flex;
@@ -103,6 +114,15 @@ header {
         }
     }
 }
+.card-loading {
+    border: 2px solid #e0e0dc;
+    height: 100%;
+    border-radius: 12px;
+    background-color: #19210ed9;
+    .lds-roller {
+        transform: scale(0.7);
+    }
+}
 .btn-primary {
     background: #e0e0dc;
     border: none;
@@ -131,6 +151,9 @@ header {
     color: #ffffff;
     border: 2px solid;
     transition: all 0.3s;
+    position: relative;
+    width: 160px;
+    height: 48px;
     &:last-child {
         margin-right: 0;
     }
@@ -138,4 +161,39 @@ header {
         transition: all 0.3s;
         background-color: #4c5a3a;
     }
+}
+.box-control {
+    display: flex;
+    align-items: center;
+}
+.btn-loading {
+    .lds-roller {
+        transform: scale(0.4);
+    }
+}
+span.empty-image-skeleton {
+    background: rgb(255 255 255 / 28%);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 12px;
+    position: absolute;
+    animation: 1.5s ease-in-out 0.5s infinite normal none running animation-skeleton;
+}
+@keyframes animation-skeleton {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StakingContract_Address, StakingContract_Address_NFT } from "../../config";
 import { ScaleLoader } from "react-spinners";
 import { successAlert } from "./toastGroup";
-import { Button, Grid } from "@mui/material";
+import { PageLoading } from "./Loading";
 
 export default function UnNFTCard({
     id,
@@ -13,16 +13,26 @@ export default function UnNFTCard({
     contract,
     contract_nft
 }) {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState("");
+    const getNftDetail = async () => {
+        const uri = await contract_nft?.tokenURI(tokenId);
+        await fetch(uri)
+            .then(resp =>
+                resp.json()
+            ).catch((e) => {
+                console.log(e);
+            }).then((json) => {
+                setImage(json?.image)
+            })
+    }
 
-    const onStake = async () => {
-        setLoading(false)
+    const onUnStake = async () => {
+        setLoading(true);
         try {
-            const approve = await contract_nft.approve(StakingContract_Address, id)
-            await approve.wait();
-            const stake = await contract.callStakeToken(StakingContract_Address_NFT, id)
-            await stake.wait();
-            successAlert("Staking is successful.")
+            const unstake = await contract.unStake([id])
+            await unstake.wait();
+            successAlert("Unstaking is successful.")
             updatePage(signerAddress)
         } catch (error) {
             setLoading(false)
@@ -31,19 +41,49 @@ export default function UnNFTCard({
         setLoading(false)
     }
 
+    const onClaim = async () => {
+        setLoading(true);
+        try {
+            const unstake = await contract.claimReward([id])
+            await unstake.wait();
+            successAlert("Claiming is successful.")
+            updatePage(signerAddress)
+        } catch (error) {
+            setLoading(false)
+            console.log(error)
+        }
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        getNftDetail();
+        // eslint-disable-next-line
+    }, [])
     return (
         <div className="nft-card">
-            <div className="media">
-                {/* eslint-disable-next-line */}
-                <img
-                    src="https://lh3.googleusercontent.com/CUw9Pm2OdYAAUJuqIyKwOEOJKZL11Ui8jC2oqYFEBIj6OhJwi3ayI0kzKA4tZ6mhUQvAkFyov1xxG-ju0PnRNQQVG_eYG3Y8tn-mmlQ=w600"
-                    alt=""
-                />
-            </div>
-            <div className="card-action">
-                <button className="btn-primary">UNSTAKE</button>
-                <button className="btn-primary">CLAIM</button>
-            </div>
+            {loading ?
+                <div className="card-loading">
+                    <PageLoading />
+                </div>
+                :
+                <>
+                    <div className="media">
+                        {image === "" ?
+                            <span className="empty-image empty-image-skeleton"></span>
+                            :
+                            // eslint-disable-next-line
+                            <img
+                                src={image}
+                                alt=""
+                            />
+                        }
+                    </div>
+                    <div className="card-action">
+                        <button className="btn-primary" onClick={onUnStake}>UNSTAKE</button>
+                        <button className="btn-primary" onClick={onClaim}>CLAIM</button>
+                    </div>
+                </>
+            }
         </div>
     )
 }
