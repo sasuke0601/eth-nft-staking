@@ -197,3 +197,17 @@ span.empty-image-skeleton {
     align-items: center;
     justify-content: center;
 }
+.reward {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 3;
+    color: #fff;
+    p {
+        font-size: 12px;
+        margin: 0;
+    }
+    span {
+        font-size: 14px;
+    }
+}

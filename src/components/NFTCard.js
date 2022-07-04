@@ -18,7 +18,6 @@ export default function NFTCard({
     const [image, setImage] = useState("");
     const getNftDetail = async () => {
         const uri = await contract_nft?.tokenURI(tokenId);
-        console.log(uri);
         await fetch(uri)
             .then(resp =>
                 resp.json()
@@ -32,7 +31,6 @@ export default function NFTCard({
         setLoading(true);
         try {
             const approved = await contract_nft.isApprovedForAll(signerAddress, StakingContract_Address);
-            console.log(approved, "approved")
             if (!approved) {
                 const approve = await contract_nft.setApprovalForAll(StakingContract_Address, true)
                 await approve.wait();

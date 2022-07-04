@@ -25,7 +25,6 @@ export default function Home() {
     const [stakedNFTs, setStakedNFTs] = useState();
     const [loading, setLoading] = useState(false);
     const [totalStaked, setTotalStaked] = useState(0);
-
     const [stakeAllLoading, setStakeAllLoading] = useState(false);
     const [unstakeAllLoading, setUnstakeAllLoading] = useState(false);
     const [claimAllLoading, setClaimAllLoading] = useState(false);
@@ -59,10 +58,6 @@ export default function Home() {
                     signer
                 );
 
-                console.log(contract)
-
-                console.log(parseFloat(await contract.getRewardRate()) / Math.pow(10, 18))
-                console.log(await contract.viewStake(3))
                 contract_20 = new ethers.Contract(
                     SMARTCONTRACT_ADDRESS_ERC20,
                     SMARTCONTRACT_ABI_ERC20,
@@ -109,7 +104,11 @@ export default function Home() {
             for (let i = 0; i < parseInt(totalSupply); i++) {
                 promise.push(contract.viewStake(i))
             }
-            const data = await Promise.all(promise)
+            const data = await Promise.all(promise);
+            const now = new Date().getTime() / 1000;
+
+            const rate = parseFloat(await contract.getRewardRate()) / Math.pow(10, 18);
+
             for (let i = 0; i < data.length; i++) {
                 if (data[i].status === 1) {
                     // console.log(i, "pool ID--------------------------");
@@ -117,12 +116,14 @@ export default function Home() {
                 if (data[i].status === 0) {
                     total++
                     if (data[i].staker.toLowerCase() === address.toLowerCase()) {
+                        console.log(rate)
                         staked.push(
                             {
                                 id: i,
                                 tokenId: data[i].tokenId.toNumber(),
                                 status: data[i].status,
-                                releaseTime: parseFloat(data[i].releaseTime) * 1000
+                                releaseTime: parseFloat(data[i].releaseTime),
+                                reward: (now - parseFloat(data[i].releaseTime)) * rate / (24 * 60 * 60)
                             }
                         )
                     }
@@ -131,12 +132,12 @@ export default function Home() {
         } catch (error) {
             console.log(error)
         }
-        console.log(unstaked)
-        console.log(staked)
-        setUnstakedNFTs(unstaked)
-        setStakedNFTs(staked)
-        setTotalStaked(total)
-        setLoading(false)
+        console.log(unstaked);
+        console.log(staked);
+        setUnstakedNFTs(unstaked);
+        setStakedNFTs(staked);
+        setTotalStaked(total);
+        setLoading(false);
     }
 
     const checkNetwork = async () => {
@@ -208,6 +209,11 @@ export default function Home() {
             console.log(error)
         }
         setClaimAllLoading(false)
+    }
+
+    const getClaimReward = (releaseTime) => {
+        const now = new Date().getTime() / 1000;
+        return (now - releaseTime) * rewardRate / (24 * 60 * 60);
     }
 
     useEffect(() => {
@@ -338,6 +344,8 @@ export default function Home() {
                                                             updatePage={() => updatePage(signerAddress)}
                                                             contract={contract}
                                                             contract_nft={contract_nft}
+                                                            releaseTime={item.releaseTime}
+                                                            reward={item.reward}
                                                         />
                                                     ))}
                                                 </div>
