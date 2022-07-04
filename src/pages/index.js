@@ -106,7 +106,6 @@ export default function Home() {
             }
             const data = await Promise.all(promise);
             const now = new Date().getTime() / 1000;
-
             const rate = parseFloat(await contract.getRewardRate()) / Math.pow(10, 18);
 
             for (let i = 0; i < data.length; i++) {
@@ -121,9 +120,7 @@ export default function Home() {
                             {
                                 id: i,
                                 tokenId: data[i].tokenId.toNumber(),
-                                status: data[i].status,
-                                releaseTime: parseFloat(data[i].releaseTime),
-                                reward: (now - parseFloat(data[i].releaseTime)) * rate / (24 * 60 * 60)
+                                status: data[i].status
                             }
                         )
                     }
@@ -132,8 +129,6 @@ export default function Home() {
         } catch (error) {
             console.log(error)
         }
-        console.log(unstaked);
-        console.log(staked);
         setUnstakedNFTs(unstaked);
         setStakedNFTs(staked);
         setTotalStaked(total);
@@ -209,11 +204,6 @@ export default function Home() {
             console.log(error)
         }
         setClaimAllLoading(false)
-    }
-
-    const getClaimReward = (releaseTime) => {
-        const now = new Date().getTime() / 1000;
-        return (now - releaseTime) * rewardRate / (24 * 60 * 60);
     }
 
     useEffect(() => {
@@ -344,8 +334,6 @@ export default function Home() {
                                                             updatePage={() => updatePage(signerAddress)}
                                                             contract={contract}
                                                             contract_nft={contract_nft}
-                                                            releaseTime={item.releaseTime}
-                                                            reward={item.reward}
                                                         />
                                                     ))}
                                                 </div>

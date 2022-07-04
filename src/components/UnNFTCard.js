@@ -12,11 +12,10 @@ export default function UnNFTCard({
     updatePage,
     contract,
     contract_nft,
-    releaseTime,
-    reward
 }) {
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState("");
+    const [reward, setReward] = useState(0);
 
     const getNftDetail = async () => {
         const uri = await contract_nft?.tokenURI(tokenId);
@@ -29,6 +28,21 @@ export default function UnNFTCard({
                 setImage(json?.image)
             });
 
+    }
+
+    const getReward = async () => {
+        const now = new Date().getTime() / 1000;
+        const rate = parseFloat(await contract.getRewardRate()) / Math.pow(10, 18);
+        const data = await contract.viewStake(id);
+        const reward = (now - parseFloat(data.releaseTime)) * rate / (24 * 60 * 60);
+        setReward(reward);
+    }
+
+    const showReward = () => {
+        getReward();
+        setInterval(() => {
+            getReward();
+        }, 10000);
     }
 
     const onUnStake = async () => {
@@ -61,13 +75,14 @@ export default function UnNFTCard({
 
     useEffect(() => {
         getNftDetail();
+        showReward();
         // eslint-disable-next-line
     }, [])
     return (
         <div className="nft-card">
             <div className="reward">
                 <p>Reward:</p>
-                <span>{parseFloat(reward).toLocaleString()}</span>
+                <span>{parseFloat(reward).toLocaleString()} DUNK</span>
             </div>
             {loading ?
                 <div className="card-loading">
