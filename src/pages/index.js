@@ -28,6 +28,7 @@ export default function Home() {
     const [stakeAllLoading, setStakeAllLoading] = useState(false);
     const [unstakeAllLoading, setUnstakeAllLoading] = useState(false);
     const [claimAllLoading, setClaimAllLoading] = useState(false);
+    const [dailyRewardRate, setDailyRewardRate] = useState(0);
 
     const connectWallet = async () => {
         if (await checkNetwork()) {
@@ -63,6 +64,7 @@ export default function Home() {
                     SMARTCONTRACT_ABI_ERC20,
                     signer
                 );
+                setDailyRewardRate((await contract.getRewardRate()) / Math.pow(10, 18) / 25)
 
                 /////////////////
                 updatePage(address);
@@ -243,11 +245,12 @@ export default function Home() {
                     connectWallet={() => connectWallet()}
                     connected={connected}
                 />
-                <div className="">
+                <div className="top-title">
                     <Container maxWidth="lg">
                         <h1 className="title">
                             Stake Your NFT
                         </h1>
+                        <p className="reward-rate">daily reward rate per nft: {dailyRewardRate === 0 ? "--" : dailyRewardRate} DUNK</p>
                     </Container>
                 </div>
                 {connected ?

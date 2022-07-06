@@ -14,10 +14,18 @@ header {
         justify-content: space-between;
     }
 }
-.title {
-    font-size: 56px !important;
-    text-align: center;
-    color: #394529;
+.top-title {
+    .title {
+        font-size: 56px !important;
+        text-align: center;
+        color: #394529;
+    }
+    .reward-rate {
+        text-align: center;
+        color: #394529;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff;
+    }
 }
 
 .subtitle {
