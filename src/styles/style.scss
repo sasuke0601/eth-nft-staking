@@ -15,10 +15,18 @@ header {
     }
 }
 .top-title {
+    padding-top: 100px;
     .title {
         font-size: 56px !important;
         text-align: center;
         color: #394529;
+    }
+    @media (max-width: 762px) {
+        padding-top: 130px;
+        .title {
+            font-size: 42px !important;
+            padding-top: 20px;
+        }
     }
     .reward-rate {
         text-align: center;
@@ -220,5 +228,23 @@ span.empty-image-skeleton {
     }
     span {
         font-size: 14px;
+    }
+}
+.page-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 80px;
+    img {
+        width: 120px;
+        height: 120px;
+        margin-top: 60px;
+    }
+    @media (max-width: 762px) {
+        padding-top: 170px;
+        img {
+            width: 100px;
+            height: 100px;
+        }
     }
 }

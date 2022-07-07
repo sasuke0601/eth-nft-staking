@@ -72,6 +72,17 @@ a {
   padding: 5px 30px !important;
   font-size: 20px !important;
   border-radius: 30px !important;
+  position: absolute;
+  top: 30px;
+  right: 40px;
+}
+@media (max-width: 762px) {
+  .wallet-button {
+    top: 0px;
+    right: 40px;
+    right: 50%;
+    transform: translateX(50%);
+  }
 }
 
 .status,
