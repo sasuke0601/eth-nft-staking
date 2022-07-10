@@ -253,7 +253,7 @@ export default function Home() {
                         <p className="reward-rate">daily reward rate per nft: {dailyRewardRate === 0 ? "--" : dailyRewardRate} DUNK</p>
                     </Container>
                 </div>
-                {connected ?
+                {connected &&
                     <Container>
                         <div className="main-page">
                             <div className="title-bar">
@@ -347,12 +347,6 @@ export default function Home() {
                             </Grid>
                         </div>
                     </Container>
-                    :
-                    <div className="center">
-                        <Button variant="contained" color="secondary" className="wallet-button" onClick={() => connectWallet()}>
-                            Wallet connect
-                        </Button>
-                    </div>
                 }
             </main>
             {/* eslint-disable-next-line */}
