@@ -32,7 +32,12 @@ header {
         text-align: center;
         color: #394529;
         text-transform: uppercase;
-        text-shadow: 2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff;
+        text-shadow: 2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff, 2px 2px 10px #00000090;
+        span {
+            font-size: 28px;
+            color: yellow;
+            text-shadow: 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000;
+        }
     }
 }
 

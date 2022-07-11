@@ -250,7 +250,7 @@ export default function Home() {
                         <h1 className="title">
                             Stake Your NFT
                         </h1>
-                        <p className="reward-rate">daily reward rate per nft: {dailyRewardRate === 0 ? "--" : dailyRewardRate} DUNK</p>
+                        <p className="reward-rate">daily reward rate per nft<br /> <span>{dailyRewardRate === 0 ? "--" : dailyRewardRate} DUNK</span></p>
                     </Container>
                 </div>
                 {connected &&
