@@ -142,7 +142,8 @@ header {
 }
 .card-loading {
     border: 2px solid #e0e0dc;
-    height: 100%;
+    height: calc(100% - 6px);
+    width: 100%;
     border-radius: 12px;
     background-color: #19210ed9;
     .lds-roller {
