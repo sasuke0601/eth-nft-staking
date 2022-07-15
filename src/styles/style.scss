@@ -130,6 +130,10 @@ header {
                 opacity: 1;
                 pointer-events: all;
                 transition: all 0.2s;
+                &.is-loading {
+                    pointer-events: none;
+                    opacity: 0;
+                }
             }
         }
         @media (max-width: 762px) {
@@ -146,6 +150,7 @@ header {
     width: 100%;
     border-radius: 12px;
     background-color: #19210ed9;
+    position: absolute;
     .lds-roller {
         transform: scale(0.7);
     }
@@ -229,8 +234,8 @@ span.empty-image-skeleton {
 }
 .reward {
     position: absolute;
-    left: 10px;
-    bottom: 10px;
+    left: 8px;
+    bottom: 6px;
     z-index: 3;
     color: #fff;
     p {

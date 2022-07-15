@@ -84,29 +84,27 @@ export default function UnNFTCard({
                 <p>Reward:</p>
                 <span>{parseFloat(reward).toLocaleString()} DUNK</span>
             </div>
-            {loading ?
+            {loading &&
                 <div className="card-loading">
                     <PageLoading />
                 </div>
-                :
-                <>
-                    <div className="media">
-                        {image === "" ?
-                            <span className="empty-image empty-image-skeleton"></span>
-                            :
-                            // eslint-disable-next-line
-                            <img
-                                src={image}
-                                alt=""
-                            />
-                        }
-                    </div>
-                    <div className="card-action">
-                        <button className="btn-primary" onClick={onUnStake}>UNSTAKE</button>
-                        <button className="btn-primary" onClick={onClaim}>CLAIM</button>
-                    </div>
-                </>
             }
+            <div className="media">
+                {image === "" ?
+                    <span className="empty-image empty-image-skeleton"></span>
+                    :
+                    // eslint-disable-next-line
+                    <img
+                        src={image}
+                        alt=""
+                        style={{ opacity: loading ? 0 : 1 }}
+                    />
+                }
+            </div>
+            <div className={loading ? "card-action is-loading" : "card-action"}>
+                <button className="btn-primary" onClick={onUnStake}>UNSTAKE</button>
+                <button className="btn-primary" onClick={onClaim}>CLAIM</button>
+            </div>
         </div>
     )
 }

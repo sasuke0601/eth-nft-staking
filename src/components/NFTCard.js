@@ -52,28 +52,26 @@ export default function NFTCard({
     }, [])
     return (
         <div className="nft-card">
-            {loading ?
-                <div className="card-loading">
-                    <PageLoading />
-                </div>
-                :
-                <>
-                    <div className="media">
-                        {image === "" ?
-                            <span className="empty-image empty-image-skeleton"></span>
-                            :
-                            // eslint-disable-next-line
-                            <img
-                                src={image}
-                                alt=""
-                            />
-                        }
+            <div className="media">
+                {loading &&
+                    <div className="card-loading">
+                        <PageLoading />
                     </div>
-                    <div className="card-action">
-                        <button className="btn-primary" onClick={onStake}>STAKE</button>
-                    </div>
-                </>
-            }
+                }
+                {image === "" ?
+                    <span className="empty-image empty-image-skeleton"></span>
+                    :
+                    // eslint-disable-next-line
+                    <img
+                        src={image}
+                        alt=""
+                        style={{ opacity: loading ? 0 : 1 }}
+                    />
+                }
+            </div>
+            <div className={loading ? "card-action is-loading" : "card-action"}>
+                <button className="btn-primary" onClick={onStake}>STAKE</button>
+            </div>
         </div>
     )
 }
