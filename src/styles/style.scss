@@ -96,6 +96,9 @@ header {
         width: calc(33.33% - 8px);
         position: relative;
         // height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         .media {
             position: relative;
             // height: 100%;
@@ -230,11 +233,11 @@ span.empty-image-skeleton {
     z-index: 3;
     color: #fff;
     p {
-        font-size: 12px;
+        font-size: 11px;
         margin: 0;
     }
     span {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 .page-logo {
