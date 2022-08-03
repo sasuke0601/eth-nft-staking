@@ -6,5 +6,3 @@
 - Solidity
 ## Frontend
 - Next.js + JS
-## Demo
-https://seattle-superkongs-staking.netlify.app/
