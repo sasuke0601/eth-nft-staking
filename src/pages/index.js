@@ -235,7 +235,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>CryoPunks Staking</title>
+                <title>CryoPunks Staking!</title>
                 <meta name="description" content="Cryopunks NFT staking for Cryogen" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
