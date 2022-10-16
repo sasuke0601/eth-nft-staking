@@ -1,5 +1,11 @@
-// SPDX-License-Identifier: Unlicense
-pragma solidity 0.8.7;
+/**
+ *Submitted for verification at BscScan.com on 2022-10-11
+*/
+
+// File: contracts/CryoPunksStaking.sol
+
+
+pragma solidity 0.8.17;
 
 // import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 // import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
@@ -154,6 +160,7 @@ interface IERC721 is IERC165 {
     ) external;
 }
 
+
 interface IERC721Receiver {
     /**
      * @dev Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom}
@@ -171,6 +178,7 @@ interface IERC721Receiver {
         bytes calldata data
     ) external returns (bytes4);
 }
+
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
@@ -250,12 +258,13 @@ interface IERC20 {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
+
 contract StakeNFT {
 
     //State variabble
     uint private _stakingId = 0;
-    address private NFTToken = 0x09be586b0b6D79488D6Fe645a31784DE516Ad36e;
-    address private REWARDToken = 0xC64344b21f245aDDd9E0086177505116E7eC6BE0;
+    address private NFTToken = 0x89bd6e2304e431B5BF9a999f99D7912e68a9f5ec;
+    address private REWARDToken = 0x6A73A99fAC60c265863307c5A40abf32F0a040aC;
 
     address private admin;
     uint private rate;
@@ -281,6 +290,7 @@ contract StakeNFT {
     //mapping
     mapping(uint => Staking) private _StakedItem; 
 
+
     //event
     event tokenStaked(address indexed staker, address indexed token, uint token_id, StakingStatus status, uint StakingId);
     event tokenClaimStatus(address indexed token, uint indexed token_id, StakingStatus indexed status, uint StakingId);
@@ -289,7 +299,7 @@ contract StakeNFT {
 
     //function to call another function
     function callStakeToken(address token, uint _tokenID) public {
-        require(token == 0xd2a5bC10698FD955D1Fe6cb468a17809A08fd005, "incorrect NFT to stake"); // hardcode the NFT smart contract to allow only specific NFT into staking, assume 0xd2...d005 as NFT contract address
+        require(token == NFTToken, "incorrect NFT to stake"); // hardcode the NFT smart contract to allow only specific NFT into staking, assume 0xd2...d005 as NFT contract address
         stakeToken(token, _tokenID);
     }
 
@@ -303,6 +313,7 @@ contract StakeNFT {
 
         Staking memory staking = Staking(msg.sender,token, tokenId, releaseTime, StakingStatus.Active, currentStakingId);
         
+
         _StakedItem[_stakingId] = staking;
         _stakingId++;
 
@@ -328,6 +339,8 @@ contract StakeNFT {
 
         emit tokenClaimStatus(staking.token, staking.tokenId, staking.status, staking.StakingId);
         return _StakedItem[stakingId];
+
+ 
     }
 
     //function to claim reward token if NFT stake duration is completed
@@ -337,7 +350,7 @@ contract StakeNFT {
         require(staking.staker == msg.sender,"You cannot cancel this staking as it is not listed under this address");
         require(staking.status == StakingStatus.Claimable,"Your reward is either not claimable yet or has been claimed");
 
-        uint amount = rate * (block.timestamp - staking.releaseTime) / 1 days;
+        uint amount = rate * (block.timestamp - staking.releaseTime) / 5 minutes;
 
         IERC20(REWARDToken).transfer(msg.sender, amount);
 
@@ -348,6 +361,7 @@ contract StakeNFT {
         
         return _StakedItem[stakingId];
     }
+    
 
     //function to cancel NFT stake
     function cancelStake(uint stakingId) public returns (Staking memory) {
@@ -372,6 +386,9 @@ contract StakeNFT {
         return rate;
     }
 
+    function getTotalStaked() external view returns (uint) {
+        return _stakingId;
+    }
     modifier onlyAdmin{
         require(admin == msg.sender, "OA");
         _;
@@ -380,4 +397,5 @@ contract StakeNFT {
     function setNewAdmin(address newAdd) external onlyAdmin{
         admin = newAdd;
     }
+
 }

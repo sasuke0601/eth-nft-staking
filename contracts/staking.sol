@@ -1,5 +1,11 @@
-// SPDX-License-Identifier: Unlicense
-pragma solidity 0.8.7;
+/**
+ *Submitted for verification at BscScan.com on 2022-10-11
+*/
+
+// File: contracts/CryoPunksStaking.sol
+
+
+pragma solidity 0.8.17;
 
 // import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 // import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
@@ -257,8 +263,8 @@ contract StakeNFT {
 
     //State variabble
     uint private _stakingId = 0;
-    address private NFTToken = 0x36C55184eE6792361dF3CcE91aa0114af7c17CE8;
-    address private REWARDToken = 0xC64344b21f245aDDd9E0086177505116E7eC6BE0;
+    address private NFTToken = 0x89bd6e2304e431B5BF9a999f99D7912e68a9f5ec;
+    address private REWARDToken = 0x6A73A99fAC60c265863307c5A40abf32F0a040aC;
 
     address private admin;
     uint private rate;

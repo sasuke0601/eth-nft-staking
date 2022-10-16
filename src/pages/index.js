@@ -235,8 +235,8 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Seattle SuperKongs Staking</title>
-                <meta name="description" content="Seattle SuperKongs Staking" />
+                <title>CryoPunks Staking</title>
+                <meta name="description" content="Cryopunks NFT staking for Cryogen" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className={styles.main}>
@@ -247,10 +247,10 @@ export default function Home() {
                 />
                 <div className="top-title">
                     <Container maxWidth="lg">
-                        <h1 className="title">
-                            Stake Your NFT
-                        </h1>
-                        <p className="reward-rate">daily reward rate: <span>{dailyRewardRate === 0 ? "--" : dailyRewardRate} DUNK</span></p>
+                        <h2 className="title">
+                            Stake Your Cryopunks!
+                        </h2>
+                        <p className="reward-rate">daily reward rate: <span>{dailyRewardRate === 0 ? "--" : dailyRewardRate} Cryogen</span></p>
                     </Container>
                 </div>
                 {connected &&
@@ -263,7 +263,7 @@ export default function Home() {
                                 <Grid item xs={12} md={6}>
                                     <div className="nft-box">
                                         <div className="box-header">
-                                            <h3>Your NFT {unstakedNFTs?.length && `(${unstakedNFTs?.length})`}</h3>
+                                            <h3>Your Stevies {unstakedNFTs?.length && `(${unstakedNFTs?.length})`}</h3>
                                             <div className="box-control">
                                                 <button className="btn-second" onClick={onStakeAll} disabled={stakeAllLoading}>
                                                     {stakeAllLoading ?
@@ -301,7 +301,7 @@ export default function Home() {
                                 <Grid item xs={12} md={6}>
                                     <div className="nft-box">
                                         <div className="box-header">
-                                            <h3>Staked NFT {stakedNFTs?.length && `(${stakedNFTs?.length})`}</h3>
+                                            <h3>Staked Stevies {stakedNFTs?.length && `(${stakedNFTs?.length})`}</h3>
                                             <div className="box-control">
                                                 <button className="btn-second" onClick={onUnstakeAll} disabled={unstakeAllLoading}>
                                                     {unstakeAllLoading ?
