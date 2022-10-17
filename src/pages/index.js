@@ -255,7 +255,7 @@ export default function Home() {
                 <div className="top-title">
                     <Container maxWidth="lg">
                         <h2 className="title">
-                            Stake Your Cryopunks!
+                            Stake Your Cryopunks
                         </h2>
                         <p className="reward-rate">daily reward rate: <br></br><span>{dailyRewardRate === 0 ? "--" : dailyRewardRate} Cryogen</span></p>
                     </Container>
