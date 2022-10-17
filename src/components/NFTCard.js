@@ -18,14 +18,23 @@ export default function NFTCard({
     const [image, setImage] = useState("");
     const getNftDetail = async () => {
         const uri = await contract_nft?.tokenURI(tokenId);
-        await fetch(uri)
-            .then(resp =>
-                resp.json()
-            ).catch((e) => {
-                console.log(e);
-            }).then((json) => {
-                setImage(json?.image)
-            })
+        // QmaKBC7tJPtgnYn3C5p8GRQcY9pRhxG3vrkto8N5kW5svA
+        // QmeQPsbhb3wRX7XVD54yJcfGM4SnmeFaiaXLLESuyccpiE
+        // above parametes are hardcoded it is more proper to take them from contract as uri
+        // but contract uri  has to be reformatted to fetch data (add https and ipfs )
+        // and image url too
+        const url = `https://ipfs.io/ipfs/QmaKBC7tJPtgnYn3C5p8GRQcY9pRhxG3vrkto8N5kW5svA/${tokenId}.json`
+        const imageUrl = `https://ipfs.io/ipfs/QmeQPsbhb3wRX7XVD54yJcfGM4SnmeFaiaXLLESuyccpiE/${tokenId}.png`
+        setImage(imageUrl)
+        //await fetch(url)
+        //    .then(resp =>
+        //        resp.json()
+        //    ).catch((e) => {
+        //        console.log(e);
+        //    }).then((json) => {
+        //        console.log('response',json);
+        //        setImage(json?.image) // image property is not suitable for img to, it should contains https
+        //    })
     }
 
     const onStake = async () => {
