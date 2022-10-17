@@ -184,7 +184,7 @@ header {
     border: 2px solid;
     transition: all 0.3s;
     position: relative;
-    width: 160px;
+    width: 170px;
     height: 48px;
     &:last-child {
         margin-right: 0;
@@ -252,8 +252,8 @@ span.empty-image-skeleton {
     transform: translateX(-50%);
     padding-top: 80px;
     img {
-        width: 120px;
-        height: 120px;
+        width: 150px;
+        height: 140px;
         margin-top: 60px;
     }
     @media (max-width: 762px) {
