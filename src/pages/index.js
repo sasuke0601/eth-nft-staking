@@ -234,11 +234,18 @@ export default function Home() {
 
     return (
         <>
-            <Head>
+            <Head >
                 <title>CryoPunks Staking!</title>
                 <meta name="description" content="Cryopunks NFT staking for Cryogen" />
+                <meta property="og:url" content="https://cryogen.life" />
+                <meta property="og:title" content="Cryopunks NFT Staking" />
+                <meta property="og:description" content="Stake your cryopunks to earn cryogen daily" />
+                <meta property="og:image" content="https://cryogen.life/images/smallICO.png" />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:image:alt" content="Cryogen defi the world" />
+                <meta property="og:site_name" content="Cryopunks" />
                 <link rel="icon" href="/favicon.ico" />
-            </Head>
+            </Head >
             <main className={styles.main}>
                 <Header
                     signerAddress={signerAddress}
