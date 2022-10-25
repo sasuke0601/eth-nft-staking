@@ -34,6 +34,11 @@ export const StakingContract_ABI = [
 				"internalType": "uint256",
 				"name": "stakingId",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "staker",
+				"type": "address"
 			}
 		],
 		"name": "checkStake",
@@ -87,46 +92,8 @@ export const StakingContract_ABI = [
 				"type": "uint256[]"
 			}
 		],
-		"name": "claimStake",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "staker",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "releaseTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum StakeNFT.StakingStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint256",
-						"name": "StakingId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct StakeNFT.Staking",
-				"name": "",
-				"type": "tuple"
-			}
-		],
+		"name": "claimReward",
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -290,6 +257,32 @@ export const StakingContract_ABI = [
 		],
 		"name": "tokenStaked",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "stakingId",
+				"type": "uint256[]"
+			}
+		],
+		"name": "unStake",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
