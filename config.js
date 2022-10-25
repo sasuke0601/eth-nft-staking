@@ -34,57 +34,6 @@ export const StakingContract_ABI = [
 				"internalType": "uint256",
 				"name": "stakingId",
 				"type": "uint256"
-			}
-		],
-		"name": "cancelStake",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "staker",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "releaseTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum StakeNFT.StakingStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint256",
-						"name": "StakingId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct StakeNFT.Staking",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "stakingId",
-				"type": "uint256"
 			},
 			{
 				"internalType": "address",
