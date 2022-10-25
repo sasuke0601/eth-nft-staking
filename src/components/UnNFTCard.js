@@ -11,7 +11,7 @@ export default function UnNFTCard({
     signerAddress,
     updatePage,
     contract,
-    contract_nft
+    contract_nft,
 }) {
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState("");
@@ -82,7 +82,7 @@ export default function UnNFTCard({
         <div className="nft-card">
             <div className="reward">
                 <p>Reward:</p>
-                <span>{parseFloat(reward).toLocaleString()} Cryogen</span>
+                <span>{parseFloat(reward).toLocaleString()} DUNK</span>
             </div>
             {loading &&
                 <div className="card-loading">
