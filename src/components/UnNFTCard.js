@@ -19,17 +19,14 @@ export default function UnNFTCard({
 
     const getNftDetail = async () => {
         const uri = await contract_nft?.tokenURI(tokenId);
-        const url = `https://ipfs.io/ipfs/QmaKBC7tJPtgnYn3C5p8GRQcY9pRhxG3vrkto8N5kW5svA/${tokenId}.json`
-        const imageUrl = `https://ipfs.io/ipfs/QmeQPsbhb3wRX7XVD54yJcfGM4SnmeFaiaXLLESuyccpiE/${tokenId}.png`
-        setImage(imageUrl)
-        //await fetch(uri)
-        //    .then(resp =>
-        //        resp.json()
-        //   ).catch((e) => {
-        //        console.log(e);
-        //    }).then((json) => {
-        //        setImage(json?.image)
-        //    });
+        await fetch(uri)
+            .then(resp =>
+                resp.json()
+            ).catch((e) => {
+                console.log(e);
+            }).then((json) => {
+                setImage(json?.image)
+            });
 
     }
 
