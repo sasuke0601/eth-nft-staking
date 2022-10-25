@@ -92,7 +92,7 @@ export default function Home() {
             
             let promise_index = await contract_nft.walletOfOwner(address);
            //for (let i = 0; i < parseInt(balance); i++) {
-           //   promise_index.push(contract_nft.tokenOfOwnerByIndex(address, i))
+           //promise_index.push(contract_nft.tokenOfOwnerByIndex(address, i))
            //}
             const indexData = await Promise.all(promise_index);
             for (let i = 0; i < indexData.length; i++) {
