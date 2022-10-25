@@ -241,6 +241,7 @@ span.empty-image-skeleton {
     bottom: 6px;
     z-index: 3;
     color: #fff;
+    text-shadow: 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000;
     p {
         font-size: 11px;
         margin: 0;

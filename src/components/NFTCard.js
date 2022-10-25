@@ -26,7 +26,7 @@ export default function NFTCard({
         const url = `https://ipfs.io/ipfs/QmaKBC7tJPtgnYn3C5p8GRQcY9pRhxG3vrkto8N5kW5svA/${tokenId}.json`
         const imageUrl = `https://ipfs.io/ipfs/QmeQPsbhb3wRX7XVD54yJcfGM4SnmeFaiaXLLESuyccpiE/${tokenId}.png`
         setImage(imageUrl)
-        //await fetch(url)
+        //    await fetch(url)
         //    .then(resp =>
         //        resp.json()
         //    ).catch((e) => {
@@ -51,7 +51,7 @@ export default function NFTCard({
             updatePage(signerAddress)
         } catch (error) {
             setLoading(false)
-            console.log(error)
+            console.log(error.message)
         }
         setLoading(false)
     }
