@@ -85,7 +85,7 @@ export default function UnNFTCard({
         <div className="nft-card">
             <div className="reward">
                 <p>Reward:</p>
-                <span>{parseFloat(reward).toLocaleString()} DUNK</span>
+                <span>{parseFloat(reward).toLocaleString()} Cryogen</span>
             </div>
             {loading &&
                 <div className="card-loading">
